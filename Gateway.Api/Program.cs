@@ -4,7 +4,7 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxyCompras"));
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
     
 
 builder.Services.AddCors(options =>
@@ -59,10 +59,9 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseRouting();
 app.UseCors();
 app.UseAuthorization();
-app.MapControllers();
-
 app.MapReverseProxy();
+
 await app.RunAsync();
